@@ -20,7 +20,7 @@ public static class CollectionExtension
 
     public static bool Any<T>(this ICollection<T> collection, Func<T, bool> predicate = null)
     {
-        return collection.First(predicate) != default;
+        return !Equals(collection.First(predicate), default);
     }
 
     public static bool All<T>(this ICollection<T> collection, Func<T, bool> predicate)
@@ -54,7 +54,7 @@ public static class CollectionExtension
         IComparable firstCompare = default;
         foreach (var t in collection)
         {
-            if (first == default || predicate(t).CompareTo(firstCompare) > 0)
+            if (Equals(first, default) || predicate(t).CompareTo(firstCompare) > 0)
             {
                 firstCompare = predicate(t);
                 first = t;
@@ -69,7 +69,7 @@ public static class CollectionExtension
         IComparable firstCompare = default;
         foreach (var t in collection)
         {
-            if (first == default || predicate(t).CompareTo(firstCompare) < 0)
+            if (Equals(first, default) || predicate(t).CompareTo(firstCompare) < 0)
             {
                 firstCompare = predicate(t);
                 first = t;
